@@ -3,26 +3,32 @@
 """
 
 from pathlib import WindowsPath
-from itertools import pairwise, chain
 
 puzzle = WindowsPath(__file__).parent / 'puzzle.txt'  # .txt file next to .py file
 
-left_plays = 'ABC'
-right_plays = 'XYZ'
-
+opponent_plays = 'ABC'
+your_plays = 'XYZ'
+win_map = {0: 1, 1: 2, 2: 0}
 
 def run():
+    score = 0
     lines = [pair.split() for pair in puzzle.read_text().splitlines()]
     for l in lines:
-        left = left_plays.index(l[0])
-        right = right_plays.index(l[1])
+        opponent = opponent_plays.index(l[0])
+        you = your_plays.index(l[1])
+        win_condition = win_map[opponent]
 
-        tie = left == right
-        left_win = left > right if not left == 0 and not right == 2 else False
-        right_win = right > left if not right == 0 and not left == 2 else False
+        # Right wins
+        if you == win_condition:
+            score += 6
+        # Tie
+        elif you == opponent:
+            score += 3
 
-        print(l)
-        print(tie, left_win, right_win)
+        # Increment from left's choice
+        score += you + 1
+
+    return score
 
 
 if __name__ == '__main__':
