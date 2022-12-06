@@ -1,20 +1,15 @@
 """
 
-
 """
 
-from puzzles import Puzzle
+from pathlib import Path
 
-puzzle = Puzzle(__file__)
-lines = puzzle.lines
+puzzle = Path(__file__).parent / 'puzzle.txt'  # .txt file next to .py file
 
 
 def run():
-    result = None
+    return
 
-
-
-    return result
 
 if __name__ == '__main__':
     print(run())
