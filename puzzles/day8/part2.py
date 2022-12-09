@@ -1,7 +1,7 @@
 """
 Author: Ryan Metcalf
-Day:    0
-Part:   1
+Day:    8
+Part:   2
 """
 
 from pathlib import Path

@@ -1,5 +1,7 @@
 """
-
+Author: Ryan Metcalf
+Day:    0
+Part:   2
 """
 
 from pathlib import Path
