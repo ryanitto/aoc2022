@@ -97,13 +97,28 @@ directories?
 """
 
 from pathlib import Path
+import re
 
 puzzle = Path(__file__).parent / 'puzzle.txt'  # .txt file next to .py file
-lines = [l.splitlines() for l in puzzle.read_text().split('$ ls\n')]
+lines = [l.splitlines() for l in puzzle.read_text().split('$ ls\n')][1:]
+
+dir_pattern = re.compile(r'(?<=dir )\w+')
+
+def generator_thingy(cmds):
+    if cmds:
+        cmd = cmds[0]
+        dirs = [dir_pattern.search(d).group() for d in cmd if dir_pattern.findall(d)]
+        print(dirs)
+        # yield cmds[0]
+        yield from generator_thingy(cmds[1:])
 
 
 def run():
-    return lines
+    stuff = []
+    for g in generator_thingy(lines):
+        stuff.append(g)
+        print(g)
+    return stuff
 
 
 if __name__ == '__main__':
